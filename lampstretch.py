@@ -35,8 +35,7 @@ class SmartLamp:
 if __name__ == "__main__":
     desk_lamp = SmartLamp(name="Desk Lamp", color="orange", brightness=50)
     night_stand = SmartLamp(name="Night Stand", color="yellow", brightness=70)
-    desk_lamp.turn_off()
-    night_stand.turn_off()
+    desk_lamp.turn_on()
+    night_stand.turn_on()
     print(desk_lamp.status())
     print(night_stand.status())
-
