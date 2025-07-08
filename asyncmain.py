@@ -31,17 +31,12 @@ async def get_news(city: str):
         else:
             return "No local news found."
 async def main():
-    city = input("Enter a city name: ")
+    city = input("Enter a city name: ").title()
     try:
         latitude, longitude = await get_coordinates(city)
         weather, windspeed = await get_weather(latitude, longitude)
         top_news = await get_news(city)
-        print(f"\nCity: {city}\n")
-        print("Weather:")
-        print(f" - Temperature: {weather}°C")
-        print(f" - Wind: {windspeed} km/h\n")
-        print("Top Local News:")
-        print(f' - "{top_news}"')
+        print(f"The weather in {city} is {weather}°C with a wind speed of {windspeed} km/h. The top story today is {top_news}. Happy Travels!")
     except Exception as e:
         print(f"Error: {e}")
 if __name__ == "__main__":

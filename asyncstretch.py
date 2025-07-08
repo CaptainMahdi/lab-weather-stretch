@@ -19,8 +19,8 @@ async def get_weather(latitude: float, longitude: float):
         data = response.json()
         temperature = data["current_weather"]["temperature"]
         windspeed = data["current_weather"]["windspeed"]
-        humidity = data["current_weather"]["humidity"]
-        return temperature, windspeed, humidity
+        condition_code = data["current_weather"]["weathercode"]
+        return temperature, windspeed, condition_code
 async def get_news(city: str):
     gnews_url = f"https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey=eff0093081e326ce9efb9e4ac7440e00"
     async with httpx.AsyncClient() as client:
@@ -42,21 +42,13 @@ async def get_second_news(city: str):
         else:
             return "No local news found."
 async def main():
-    city = input("Enter a city name: ")
+    city = input("Enter a city name: ").title()
     try:
         latitude, longitude = await get_coordinates(city)
-        weather, windspeed = await get_weather(latitude, longitude)
+        weather, windspeed, condition_code = await get_weather(latitude, longitude)
         top_news = await get_news(city)
         second_news = await get_second_news(city)
-        print(f"\nCity: {city}\n")
-        print("Weather:")
-        print(f" - Temperature: {weather}°C")
-        print(f" - Wind: {windspeed} km/h\n")
-        print(f" - Humidity: {humidity}%")
-        print("Top Local News:")
-        print(f' - "{top_news}"')
-        print("Second Local News:")
-        print(f' - "{second_news}"')
+        print(f"The weather in {city} is {weather}°C with a wind speed of {windspeed} km/h and the condition code is {condition_code}. The 2 top stories today are {top_news} and {second_news}. Happy Travels!")
     except Exception as e:
         print(f"Error: {e}")
 if __name__ == "__main__":
