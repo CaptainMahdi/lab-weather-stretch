@@ -15,7 +15,7 @@ async def get_coordinates(city: str):
 async def get_weather(latitude: float, longitude: float):
     weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true"
     async with httpx.AsyncClient() as client:
-        response = await client.get(weather_url)
+        response = await client.get(weather_url) 
         data = response.json()
         temperature = data["current_weather"]["temperature"]
         windspeed = data["current_weather"]["windspeed"]
@@ -31,7 +31,7 @@ async def get_news(city: str):
         else:
             return "No local news found."
 async def main():
-    city = input("Enter a city name: ").title()
+    city = input("Enter a city name: ").title() 
     try:
         latitude, longitude = await get_coordinates(city)
         weather, windspeed = await get_weather(latitude, longitude)

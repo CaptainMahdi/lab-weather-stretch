@@ -1,5 +1,6 @@
 import asyncio
 import httpx
+from rich import print
 
 async def get_coordinates(city: str):
     geocode_url = f"https://geocoding-api.open-meteo.com/v1/search?name={city}&count=1"
@@ -48,7 +49,7 @@ async def main():
         weather, windspeed, condition_code = await get_weather(latitude, longitude)
         top_news = await get_news(city)
         second_news = await get_second_news(city)
-        print(f"The weather in {city} is {weather}°C with a wind speed of {windspeed} km/h and the condition code is {condition_code}. The 2 top stories today are {top_news} and {second_news}. Happy Travels!")
+        print(f"The weather in [green]{city}[/green] is [red]{weather}°C[/red] with a wind speed of [blue]{windspeed} km/h[/blue] and the condition code is [yellow]{condition_code}[/yellow]. The 2 top stories today are [blue]{top_news}[/blue] and [blue]{second_news}[/blue]. [orange]Happy Travels![/orange]")
     except Exception as e:
         print(f"Error: {e}")
 if __name__ == "__main__":
